@@ -39,7 +39,7 @@ var national = {
     }
 };
 
-var sectors = {"Sector": [
+var sectors = [
     {
         "sectorDesc": "London and South East",
         "sectorCode": "LSE",
@@ -116,7 +116,7 @@ var sectors = {"Sector": [
             }
         }
     }
-]};
+];
 
 for (var i = 0; i < flights.length; i++) {
     flights[i].originFullName = airports[flights[i].origin].name;
@@ -146,10 +146,6 @@ app.get('/airports/:airport', function (req, res) {
     }
 });
 
-app.get('/flights', function (req, res) {
-    res.json(flights);
-});
-
 app.get('/flights/:origin', function (req, res) {
     var with_origin = flights.filter(function (item) {
         return item.origin === req.params.origin;
@@ -172,6 +168,10 @@ app.get('/ppm/all', function (req, res) {
     res.json(ppm);
 });
 
+app.get('/ppm/timestamp', function (req, res) {
+    res.send(timestamp);
+});
+
 app.get('/ppm/fixedmessage', function (req, res) {
     res.send(fixedmessage);
 });
@@ -184,8 +184,16 @@ app.get('/ppm/sectors', function (req, res) {
     res.json(sectors);
 });
 
-app.get('/ppm/timestamp', function (req, res) {
-    res.send(timestamp);
+app.get('/ppm/sectors', function (req, res) {
+    res.json(sectors);
+});
+
+app.get('/ppm/sectors/:sectorCode', function (req, res) {
+    var with_sectorCode = sectors.filter(function (item) {
+        return item.sectorCode === req.params.sectorCode;
+    });
+
+    res.json(with_sectorCode);
 });
 
 app.post('/reservations', function (req, res) {
