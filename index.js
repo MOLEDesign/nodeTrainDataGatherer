@@ -2,10 +2,6 @@ var express = require('express'),
     http = require('http');
 
 var ppm = require('./data/ppm.json');
-var airports = require('./data/airports.json');
-var flights = require('./data/flights.json');
-var reservations = [];
-
 
 var timestamp = '{"timestamp" : "' + ppm.RTPPMDataMsgV1.timestamp + '"}';
 
@@ -39,104 +35,11 @@ var national = {
     }
 };
 
-var sectors = [
-    {
-        "sectorDesc": "London and South East",
-        "sectorCode": "LSE",
-        "SectorPPM": {
-            "Total": "10187",
-            "OnTime": "9370",
-            "Late": "817",
-            "CancelVeryLate": "159",
-            "PPM": {
-                "rag": "A",
-                "text": "91"
-            },
-            "RollingPPM": {
-                "trendInd": "+",
-                "rag": "G",
-                "text": "93"
-            }
-        }
-    },
-    {
-        "sectorDesc": "Long Distance",
-        "sectorCode": "LD",
-        "SectorPPM": {
-            "Total": "1356",
-            "OnTime": "1273",
-            "Late": "83",
-            "CancelVeryLate": "18",
-            "PPM": {
-                "rag": "G",
-                "text": "93"
-            },
-            "RollingPPM": {
-                "trendInd": "=",
-                "rag": "G",
-                "text": "93"
-            }
-        }
-    },
-    {
-        "sectorDesc": "Regional",
-        "sectorCode": "REG",
-        "SectorPPM": {
-            "Total": "5240",
-            "OnTime": "4943",
-            "Late": "297",
-            "CancelVeryLate": "52",
-            "PPM": {
-                "rag": "G",
-                "text": "94"
-            },
-            "RollingPPM": {
-                "trendInd": "+",
-                "rag": "G",
-                "text": "95"
-            }
-        }
-    },
-    {
-        "sectorDesc": "Scotland",
-        "sectorCode": "SCO",
-        "SectorPPM": {
-            "Total": "2004",
-            "OnTime": "1929",
-            "Late": "75",
-            "CancelVeryLate": "11",
-            "PPM": {
-                "rag": "G",
-                "text": "96"
-            },
-            "RollingPPM": {
-                "trendInd": "-",
-                "rag": "A",
-                "text": "90"
-            }
-        }
-    }
-];
-
-for (var i = 0; i < flights.length; i++) {
-    flights[i].originFullName = airports[flights[i].origin].name;
-    flights[i].destinationFullName = airports[flights[i].destination].name;
-}
-
-function getMatchingFlights(data) {
-    return flights.filter(function (item) {
-        return (item.origin === data.origin) &&
-            (item.destination === data.destination);
-    });
-}
 
 var app = express()
     .use(express.bodyParser())
     .use(express.static('public'));
 
-app.get('/airports', function (req, res) {
-    res.json(airports);
-});
 
 app.get('/airports/:airport', function (req, res) {
     if (typeof airports[req.params.airport] === 'undefined') {
@@ -189,23 +92,30 @@ app.get('/ppm/sectors', function (req, res) {
 });
 
 app.get('/ppm/sectors/:sectorCode', function (req, res) {
-    var with_sectorCode = sectors.filter(function (item) {
+    var with_sectorCode = ppm.RTPPMDataMsgV1.RTPPMData.NationalPage.Sector.filter(function (item) {
         return item.sectorCode === req.params.sectorCode;
     });
 
     res.json(with_sectorCode);
 });
 
-app.post('/reservations', function (req, res) {
-    var matches = getMatchingFlights(req.body);
+app.get('/ppm/summary/operators/:operatorCode', function (req, res) {
+    var with_operatorCode = ppm.RTPPMDataMsgV1.RTPPMData.NationalPage.Operator.filter(function (item) {
+        return item.code === req.params.operatorCode;
+    });
 
-    if (matches.length) {
-        reservations.push(matches[0]);
-        res.json(matches[0]);
-    } else {
-        res.status(404).end();
-    }
+    res.json(with_operatorCode);
 });
+
+app.get('/ppm/detail/operators/:operatorCode', function (req, res) {
+    var with_operatorCode = ppm.RTPPMDataMsgV1.RTPPMData.OperatorPage.filter(function (item) {
+        return item.Operator.code === req.params.operatorCode;
+    });
+
+    res.json(with_operatorCode);
+});
+
+
 
 app.get('/*', function (req, res) {
     res.json(404, {status: 'not found'});
