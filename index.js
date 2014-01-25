@@ -2,7 +2,7 @@ var express = require('express'),
     http = require('http');
 
 var ppm = require('./data/ppm.json');
-var ppm = require('./data/stations.json');
+var stations= require('./data/stations.json');
 
 var timestamp = '{"timestamp" : "' + ppm.RTPPMDataMsgV1.timestamp + '"}';
 
