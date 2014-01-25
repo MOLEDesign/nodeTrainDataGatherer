@@ -1,35 +1,39 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Coming Soon</title>
-<link href="tools/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="tools/jquery.min.js"></script> 
-<script type="text/javascript" src="tools/cufon-yui.js"></script>
-<script type="text/javascript" src="tools/Bebas_400.font.js"></script>
-<script type="text/javascript" src="tools/Bell_Gothic_Std_300.font.js"></script>
-<script type="text/javascript">
-	Cufon.replace('a.logo', {fontFamily: 'Bebas'});
-	Cufon.replace('a.logo span', {fontFamily: 'Bell Gothic Std'});
-</script>
-
+    <title>Network Rail Datafeeds</title>
+    <script type="text/javascript" src="js/lib/angular.min.js"></script>
+    <script type="text/javascript" src="js/lib/angular-resource.min.js"></script>
+    <script type="text/javascript" src="js/controllers/app.js"></script>
+    <script type="text/javascript" src="js/controllers/destinations.js"></script>
+    <script type="text/javascript" src="js/controllers/flights.js"></script>
+    <script type="text/javascript" src="js/controllers/reservations.js"></script>
+    <script type="text/javascript" src="js/controllers/airport.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/services.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css">
 </head>
 <body>
-<div class="main_container">
-	<div class="header">
-		<a class="logo" href="#">GW Trains<span>Apps and Feeds</span></a>
-	</div>
-	<div class="content">
-		<h1>hello.<span>welcome to GW Trains</span></h1>
-		<div class="right_side">
-            <p><strong>WARNING: You have accessed a computer operated by First Great Western</strong>.</p>
-            <p>You are required to have authorisation from First Great Western before you proceed and you are strictly limited to the use set out within that authorisation. Unauthorised access to or misuse of this system is prohibited and constitutes an offence under the Computer Misuse Act 1990.</p>
-            <p><strong><span style="color: #ff0000;">If you disclose any information obtained through this system without authority First Great Western will take legal action against you.</span></strong></p>
+<div class="container">
+    <h1>Open Data Train Feeds</h1>
+    <p>Welcome to the Open Data Train Feed, developed by First Great Western IT. This online service delivers bite sized chunks of JSON data for mobile, tablet and desktop apps</p>
+        <h1>Station Feeds</h1>
 
-		</div>
-	</div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Route</th>
+                <th>Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="station in documents.Stations">
+                <td>{{sector.sectorDesc}}</td>
+                <td>{{sector.SectorPPM.PPM.text}}</td>
 
-	
+            </tr>
+            </tbody>
+        </table>
 </div>
 </body>
 </html>
