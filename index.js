@@ -64,9 +64,6 @@ app.get('/flights/:origin/:destination', function (req, res) {
     res.json(matches);
 });
 
-app.get('/reservations', function (req, res) {
-    res.json(reservations);
-});
 
 app.get('/ppm/all', function (req, res) {
     res.json(ppm);
