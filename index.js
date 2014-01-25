@@ -2,6 +2,7 @@ var express = require('express'),
     http = require('http');
 
 var ppm = require('./data/ppm.json');
+var ppm = require('./data/stations.json');
 
 var timestamp = '{"timestamp" : "' + ppm.RTPPMDataMsgV1.timestamp + '"}';
 
@@ -109,6 +110,18 @@ app.get('/ppm/summary/operators/:operatorCode', function (req, res) {
 
 app.get('/ppm/detail/operators/:operatorCode', function (req, res) {
     var with_operatorCode = ppm.RTPPMDataMsgV1.RTPPMData.OperatorPage.filter(function (item) {
+        return item.Operator.code === req.params.operatorCode;
+    });
+
+    res.json(with_operatorCode);
+});
+
+app.get('/stations/all', function (req, res) {
+    res.json(stations);
+});
+
+app.get('/stations/crs/:crsCode', function (req, res) {
+    var with_crsCode = stations.RTPPMDataMsgV1.RTPPMData.OperatorPage.filter(function (item) {
         return item.Operator.code === req.params.operatorCode;
     });
 
