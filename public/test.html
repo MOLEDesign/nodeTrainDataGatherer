@@ -1,0 +1,36 @@
+<html>
+<head>
+    <title>Network Rail Datafeeds</title>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script type="text/javascript" src="js/lib/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/lib/angular.min.js"></script>
+    <script type="text/javascript" src="js/lib/angular-resource.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css">
+
+
+
+</head>
+<body>
+
+    <input id="stations" autocomplete="off"/>
+
+    <script>
+
+        var jsonString = '[{"label":"System Administrator","value":"1"},{"label":"Software Tester","value":"3"},{"label":" Software Developer","value":"4"},{"label":"Senior Developer","value":"5"},{"label":"Cloud Developer","value":"6"},{"label":"Wordpress Designer","value":"7"}]';
+
+        var jsonObj = $.parseJSON(jsonString);
+        var sourceArr = [];
+
+        for (var i = 0; i < jsonObj.length; i++) {
+            sourceArr.push(jsonObj[i].label);
+        }
+
+        $("#stations").typeahead({
+            source: sourceArr
+        });
+
+    </script>
+
+</body>
+</html>

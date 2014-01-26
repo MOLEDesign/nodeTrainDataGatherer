@@ -1,0 +1,37 @@
+<html>
+<head>
+    <title>Example</title>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script type="text/javascript" src="js/lib/typeahead.min.js"></script>
+    <script src="http://twitter.github.com/hogan.js/builds/2.0.0/hogan-2.0.0.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css">
+
+
+
+
+</head>
+<body>
+<div class="hero-unit">
+    <h1>Input Test</h1>
+
+
+
+    <input id="stations" autocomplete="off"/>
+
+
+</div>
+
+<script>
+
+    $('#stations').typeahead([
+        {
+            name: 'crs',
+            remote: 'stations.json'
+        }
+    ]);
+
+</script>
+
+</body>
+</html>
