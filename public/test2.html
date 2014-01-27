@@ -1,12 +1,12 @@
 <html>
 <head>
     <title>Example</title>
-    <script src="http://code.jquery.com/jquery.js"></script>
-    <script type="text/javascript" src="js/lib/typeahead.min.js"></script>
-    <script src="http://twitter.github.com/hogan.js/builds/2.0.0/hogan-2.0.0.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css">
-
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://twitter.github.io/typeahead.js/releases/latest/typeahead.js"></script>
+    <script src="http://twitter.github.io/hogan.js/builds/2.0.0/hogan-2.0.0.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.min.css">
 
 
 
@@ -23,15 +23,15 @@
 </div>
 
 <script>
-
-    $('#stations').typeahead([
-        {
-            name: 'crs',
-            remote: 'stations.json'
-        }
-    ]);
-
+    #(document).ready(function() {
+        $('#stations').typeahead([
+            {
+                name: 'crs',
+                remote: 'stations.json'
+            }
+        ]);
+    });
 </script>
 
-</body>
+</body
 </html>
